@@ -15,8 +15,8 @@ Then run a container based off of this image with this command:
 docker run -it --rm -p 8080:8080 --name receipt-processor-app receipt-processor
 ```
 
-**Note** while you can choose any external port (the `8080` before the colon (`:`)),
-the internal port (the `8080` after the colon (`:`)) should stay as `8080`.
+**Note** while you can choose any external port (the `8080` before the colon `:`),
+the internal port (the `8080` after the colon `:`) should stay as `8080`.
 
 From here, you should be able to send requests to
 `localhost:8080/receipts/process` and  `localhost:8080/receipts/{id}/points` (or
