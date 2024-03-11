@@ -18,7 +18,7 @@ type Receipt struct {
 	Id               uuid.UUID
 }
 
-func (r *Receipt) CountPoints() {
+func CountPoints(r *Receipt) int {
 	var points int
 
 	for _, c := range r.Retailer {
@@ -76,5 +76,5 @@ func (r *Receipt) CountPoints() {
 		points += 10
 	}
 
-	r.Points = points
+	return points
 }

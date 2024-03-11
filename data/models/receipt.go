@@ -20,7 +20,7 @@ type ReceiptError error
 var receiptStringPattern = regexp.MustCompile(`^[\w\s\-&]+$`)
 var receiptTimePattern = regexp.MustCompile(`^[0-2]\d:[0-5]\d$`)
 var receiptDatePattern = regexp.MustCompile(`^\d{4}\-[01]\d\-[0-3]\d$`)
-var receiptPricePattern = regexp.MustCompile(`^\d+\.\d{2}$`)
+var receiptPricePattern = regexp.MustCompile(`^\d{1,5}\.\d{2}$`) // Max 99999.99
 
 func (r *Receipt) UnmarshalJSON(b []byte) error {
 	type RawReceipt Receipt
@@ -79,7 +79,7 @@ func (r *Receipt) UnmarshalJSON(b []byte) error {
 	}
 
 	if len(invalidFields) > 0 {
-		invalidFieldsList := strings.Join(missingFields, ", ")
+		invalidFieldsList := strings.Join(invalidFields, ", ")
 
 		return ReceiptError(fmt.Errorf("invalid fields: %s", invalidFieldsList))
 	}

@@ -73,7 +73,7 @@ type processReceiptResponse struct {
 	Id string `json:"id"`
 }
 
-func (rh *ReceiptController) processReceiptHandler(w http.ResponseWriter, r *http.Request) {
+func (rc *ReceiptController) processReceiptHandler(w http.ResponseWriter, r *http.Request) {
 	r.Body = http.MaxBytesReader(w, r.Body, MAX_RECEIPT_BYTES)
 
 	decoder := json.NewDecoder(r.Body)
@@ -144,7 +144,7 @@ func (rh *ReceiptController) processReceiptHandler(w http.ResponseWriter, r *htt
 		return
 	}
 
-	err = rh.receiptRepository.AddReceipt(receipt)
+	err = rc.receiptRepository.AddReceipt(receipt)
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return

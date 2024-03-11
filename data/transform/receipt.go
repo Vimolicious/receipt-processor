@@ -73,7 +73,7 @@ func ReceiptModelToEntity(r *models.Receipt) (*entities.Receipt, error) {
 		Id:               id,
 	}
 
-	receipt.CountPoints()
+	receipt.Points = entities.CountPoints(&receipt)
 
 	return &receipt, nil
 }
