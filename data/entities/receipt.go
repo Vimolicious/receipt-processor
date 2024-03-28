@@ -18,6 +18,29 @@ type Receipt struct {
 	Id               uuid.UUID
 }
 
+func uniqueNamePoints(r *Receipt) int {
+	itemNameMap := make(map[string]map[float64]bool)
+	uniqueNames := true
+	for _, item := range r.Items {
+		priceMap, ok := itemNameMap[item.ShortDescription]
+		if ok {
+			_, ok := priceMap[item.Price]
+			if ok {
+				uniqueNames = false
+				break
+			}
+		}
+
+		priceMap[item.Price] = true
+	}
+
+	if uniqueNames {
+		// 20 points if all items are unique
+		return 20
+	}
+	return 0
+}
+
 func CountPoints(r *Receipt) int {
 	var points int
 
@@ -75,6 +98,8 @@ func CountPoints(r *Receipt) int {
 		// 10 points if the time of purchase is after 2:00pm and before 4:00pm.
 		points += 10
 	}
+
+	points += uniqueNamePoints(r)
 
 	return points
 }
